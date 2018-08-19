@@ -1,3 +1,3 @@
-# Obstacle avoidance robot car + infrared radiation target follower
+# Obstacle avoidance robot car +infrared radiation target follower
 
 
