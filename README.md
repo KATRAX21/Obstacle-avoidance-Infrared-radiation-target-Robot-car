@@ -30,10 +30,10 @@
 
 
 
-##Guidance on designing  an obstacle avoidance robot car + infrared radiation target follower controlled by arduino.
+## Guidance on designing  an obstacle avoidance robot car + infrared radiation target follower controlled by arduino.
 
-###I have uploaded a manual for anyone who wants  to design and implement the current project.
-##The arduino code is also uploaded.
+### I have uploaded a manual for anyone who wants  to design and implement the current project.
+### The arduino code is also uploaded.
 
 
 
