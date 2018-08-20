@@ -1,0 +1,147 @@
+#include <Servo.h>//Servo library
+#include <NewPing.h>//Sensor library
+
+#define TRIGGER_PIN 7
+#define ECHO_PIN	4
+#define MAX_DISTANCE 400
+
+NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); 
+
+const int  RForward = 60; //Right servo forward (under 90).
+const int  RBackward = 120;//Right servo backward(above 90) .
+const int  LForward = 60;//Left servo forward(under 90). 
+const int  LBackward =120;//Left servo backward(above 90). 
+const int  RNeutral = 90;//centered.
+const int LNeutral = 90;//centered
+const int collisionThresh = 15;//for obstacle avoidance
+int apostash;//Distance getting measured from sensor.
+int SensorLeft;//Average value from the 3  phototranzistors on the left.
+int SensorRight;.
+Int  SensorDifference;
+int leftDistance, rightDistance; //Left-Right distance
+Servo panMotor;//Servo with attached distance sensor
+Servo leftMotor; 
+Servo rightMotor; 
+long duration; //Delay until the ultrasonic sensor receive the signal
+int val1 = analogRead(A0);
+int val2 = analogRead(A1); 
+int val3 = analogRead(A2); 
+int val4 = analogRead(A3); 
+int val5 = analogRead(A4); 
+int val6 = analogRead(A5);
+
+
+//FUNCTIONS:
+
+//Compare distance so the robot car decides where to go.
+void compareDistance();
+{
+if (leftDistance > rightDistance) 
+{
+
+leftMotor.write(LBackward); 
+rightMotor.write(RBckward);
+delay(300);
+leftMotor.write(LBackward);
+rightMotor.write(RForward);
+delay(250);
+leftMotor.write(LForward);
+rightMotor.write(RForward);
+delay(380);
+}
+else if (rightDistance > leftDistance)
+{
+leftMotor.write(LBackward); 
+rightMotor.write(RBackward);
+delay(300); leftMotor.write(LForward);
+rightMotor.write(RBackward); 
+ delay(250);
+leftMotor.write(LForward);
+ rightMotor.write(RForward);
+delay(380);
+}
+
+}
+
+
+//Function for the value of Sensorleft:
+int SensorvalueLeft()
+{
+val1 = analogRead(A0); 
+val2 = analogRead(A1); 
+val3 = analogRead(A2);
+return SensorLeft = (val1+val2+val3)/3;
+}
+
+
+//Function for the value of Sensorright:
+int SensorvalueRight()
+{
+val4 = analogRead(A3); 
+val5 = analogRead(A4); 
+val6 = analogRead(A5);
+return SensorRight = (val4+val5+val6)/3;
+}
+
+
+
+int ping()
+{
+unsigned int uS = sonar.ping();
+return  apostash = (uS / US_ROUNDTRIP_CM); //Pulses to cm!!!
+}
+
+void setup()
+{
+rightMotor.attach(11); leftMotor.attach(10); panMotor.attach(6);
+panMotor.write(90); 
+}
+
+void loop()
+{ 
+ delay(50);
+int distance = ping();//Get distance in front of the car
+SensorLeft = SensorvalueLeft(); //Value of the 3 phototranzistors from the left side.
+SensorRight = SensorvalueRight();//Value form the right side.
+SensorDifference = abs(SensorLeft – SensorRight);//Difference between average values
+
+if (distance > collisionThresh && distance != 0) //If no obstacle ahead follow infrared radiation.Ultrasonic sensor get random 0s while it measures distances so I was forced to include this condition.If u dont have this “bug” you dont have to include it.
+{
+if (SensorDifference < 10)//That means that robot car should go forward
+    { 
+           leftMotor.write(LForward);  
+        rightMotor.write(RForward); 
+    delay(25);
+    }
+if (SensorLeft < SensorRight && SensorDifference > 10) 
+{ 
+ //Left
+ leftMotor.write(LBackward);
+  rightMotor.write(RForward);    
+    delay(25);
+   }
+
+if (SensorRight < SensorLeft && SensorDifference > 10)
+ { 
+//Right
+leftMotor.write(LForward);
+rightMotor.write(RBackward); 
+delay(25);
+   }
+}
+if(( distance < collisionThresh && distance !=0))
+    {
+    leftMotor.write(LNeutral);            rightMotor.write(RNeutral);
+    panMotor.write(0); //Ultrasonic to the right
+delay(700);
+rightDistance = ping(); //scan to the right
+ delay(500);
+panMotor.write(180);//turn ultrasonic to the left
+ delay(700);
+leftDistance =ping(); /scan to the left
+ delay(500);
+panMotor.write(90); //return to center delay(500);
+
+compareDistance();
+}
+}
