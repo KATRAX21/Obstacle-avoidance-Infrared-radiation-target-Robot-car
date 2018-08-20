@@ -35,7 +35,7 @@
 ### I have uploaded a manual for anyone who wants  to design and implement the current project.
 [MANUAL.pdf](https://github.com/KATRAX21/Obstacle-avoidance-robot-car/files/2302833/MANUAL.pdf)
 
-### The arduino code is also uploaded inside the manual.
+### The arduino code is also uploaded.
 
 Contact me:Katraxhas@gmail.com
 
