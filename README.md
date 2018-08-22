@@ -33,7 +33,7 @@
 ## Guidance on designing  an obstacle avoidance robot car + infrared radiation target follower controlled by arduino.
 
 ### I have uploaded a manual for anyone who wants  to design and implement the current project.
-[MANUAL_ROΒOTCΑR.pdf](https://github.com/KATRAX21/Obstacle-avoidance-robot-car/files/2311443/MANUAL_RO.OTC.R.pdf)
+[ΜANUAL_ROBOTCΑR.pdf](https://github.com/KATRAX21/Obstacle-avoidance-robot-car/files/2311458/ANUAL_ROBOTC.R.pdf)
 
 
 ### The arduino code is also uploaded.
